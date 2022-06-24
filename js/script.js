@@ -28,11 +28,18 @@ function setOperator(operator) {
 
 function sumValue() {
   if (!calculator.numberB) return null;
-  let calculate = operate(
-    parseFloat(calculator.numberA),
-    parseFloat(calculator.numberB),
-    calculator.operator
-  );
+  let calculate;
+
+  // Stops user from trying to divide by 0
+  if (calculator.numberB === "0" && calculator.operator === "÷") {
+    return alert("ERROR!");
+  } else {
+    calculate = operate(
+      parseFloat(calculator.numberA),
+      parseFloat(calculator.numberB),
+      calculator.operator
+    );
+  }
 
   // Reset numberB and keep operator
   calculator.numberA = calculate;
@@ -57,7 +64,7 @@ function utils(util) {
     if (calculator[i].includes("-")) {
       calculator[i] = calculator[i].replace("-", "");
     } else {
-      calculator[i] = "-" + calculator[i]
+      calculator[i] = "-" + calculator[i];
     }
     screen.value = calculator[i];
   }
