@@ -1,22 +1,64 @@
-const numbers = document.querySelectorAll(".btn-number");
+const numbers = document.querySelectorAll("button");
 const screen = document.querySelector("#calcValue");
-let number = "";
+let calculator = {
+  numberA: "",
+  numberB: "",
+  operator: "",
+};
 
-function updateScreen(value) {
-  if (number.includes(",") && value === ",") return true;
-  if (!number && value === ",") number = "0";
-  if (number === "0" && value != ",") number = "";
-  number += value;
-  screen.value = number;
+function setNumbers(value) {
+  let i;
+  !calculator.operator ? (i = "numberA") : (i = "numberB");
+
+  // Don't allow multiple commas
+  if (calculator[i].includes(".") && value === ".") return null;
+  // Add a 0 before comma
+  if (!calculator[i] && value === ".") calculator[i] = "0";
+  // Remove 0 if next number is not a comma
+  if (calculator[i] === "0" && value != ".") calculator[i] = "";
+
+  calculator[i] += value;
+  screen.value = calculator[i];
+}
+
+function setOperator(operator) {
+  if (calculator.numberB) return null;
+  calculator.operator = operator;
+}
+
+function sumValue() {
+  if (!calculator.numberB) return null;
+  let calculate = operate(
+    parseFloat(calculator.numberA),
+    parseFloat(calculator.numberB),
+    calculator.operator
+  );
+  // "Reset" the values
+  calculator.numberA = calculate;
+  calculator.numberB = "";
+  calculator.operator = "";
+  screen.value = calculate;
 }
 
 // Iterate through each button
 numbers.forEach((button) => {
   // and for each button add a 'click' listener
   button.addEventListener("click", () => {
-    selectedNumber = button.textContent;
-    // send it for update display
-    updateScreen(selectedNumber);
+    let btnClicked = button.classList[0];
+
+    switch (btnClicked) {
+      case "btn-number":
+        setNumbers(button.textContent);
+        break;
+      case "btn-operator":
+        setOperator(button.textContent);
+        break;
+      case "btn-utils":
+        break;
+      case "btn-sum":
+        sumValue();
+        break;
+    }
   });
 });
 
@@ -31,16 +73,16 @@ const operate = (a, b, operator) => {
   let value;
 
   switch (operator) {
-    case "add":
+    case "+":
       value = add(a, b);
       break;
-    case "subtract":
+    case "−":
       value = subtract(a, b);
       break;
-    case "multiply":
+    case "×":
       value = multiply(a, b);
       break;
-    case "divide":
+    case "÷":
       value = divide(a, b);
       break;
   }

@@ -23,7 +23,6 @@ main {
   gap: 3px;
 }
 
-
 /* || Calculator */
 
 button {
@@ -51,7 +50,8 @@ button {
   font-size: 26px;
 }
 
-.btn-operator {
+.btn-operator,
+.btn-sum {
   background-color: #f25f5c;
   color: #fff;
   font-weight: 600;
@@ -67,20 +67,23 @@ button {
   background-color: #8dcec3;
 }
 
-.btn-operator:hover {
+.btn-operator:hover,
+.btn-sum:hover {
   background-color: #f5908e;
 }
 
 .btn-number:hover,
 .btn-utils:hover,
-.btn-operator:hover {
+.btn-operator:hover,
+.btn-sum:hover {
   /* transition: all 0.08s ease; */
   transition: all 0.12s ease;
 }
 
 .btn-number:active,
 .btn-utils:active,
-.btn-operator:active {
+.btn-operator:active,
+.btn-sum:active {
   background-color: #247ba0;
   transform: scale(1.2);
   color: #fff;
