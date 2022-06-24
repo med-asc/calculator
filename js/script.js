@@ -1,3 +1,25 @@
+const numbers = document.querySelectorAll(".btn-number");
+const screen = document.querySelector("#calcValue");
+let number = "";
+
+function updateScreen(value) {
+  if (number.includes(",") && value === ",") return true;
+  if (!number && value === ",") number = "0";
+  if (number === "0" && value != ",") number = "";
+  number += value;
+  screen.value = number;
+}
+
+// Iterate through each button
+numbers.forEach((button) => {
+  // and for each button add a 'click' listener
+  button.addEventListener("click", () => {
+    selectedNumber = button.textContent;
+    // send it for update display
+    updateScreen(selectedNumber);
+  });
+});
+
 // Math operators
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
