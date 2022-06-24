@@ -33,11 +33,25 @@ function sumValue() {
     parseFloat(calculator.numberB),
     calculator.operator
   );
-  // "Reset" the values
+
+  // Reset numberB and keep operator
   calculator.numberA = calculate;
   calculator.numberB = "";
-  calculator.operator = "";
   screen.value = calculate;
+}
+
+function utils(util) {
+  if (util === "AC") {
+    calculator.numberA = "";
+    calculator.numberB = "";
+    calculator.operator = "";
+    screen.value = "";
+  } else if (util === "C") {
+    let i;
+    !calculator.operator ? (i = "numberA") : (i = "numberB");
+    calculator[i] = calculator[i].slice(0, -1);
+    screen.value = calculator[i];
+  }
 }
 
 // Iterate through each button
@@ -54,6 +68,7 @@ numbers.forEach((button) => {
         setOperator(button.textContent);
         break;
       case "btn-utils":
+        utils(button.textContent);
         break;
       case "btn-sum":
         sumValue();
