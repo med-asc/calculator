@@ -22,7 +22,7 @@ function setNumbers(value) {
 }
 
 function setOperator(operator) {
-  if (calculator.numberB) return null;
+  if (calculator.numberB) sumValue();
   calculator.operator = operator;
 }
 
@@ -50,6 +50,15 @@ function utils(util) {
     let i;
     !calculator.operator ? (i = "numberA") : (i = "numberB");
     calculator[i] = calculator[i].slice(0, -1);
+    screen.value = calculator[i];
+  } else {
+    let i, ante;
+    !calculator.operator ? (i = "numberA") : (i = "numberB");
+    if (calculator[i].includes("-")) {
+      calculator[i] = calculator[i].replace("-", "");
+    } else {
+      calculator[i] = "-" + calculator[i]
+    }
     screen.value = calculator[i];
   }
 }
