@@ -93,6 +93,45 @@ numbers.forEach((button) => {
   });
 });
 
+// Keyboard support
+document.addEventListener("keydown", function (e) {
+  if (/^\d/.test(e.key) === true || e.key === ".") {
+    setNumbers(e.key);
+  } else if (e.key === "/" || e.key === "*" || e.key === "-" || e.key === "+") {
+    let keyTranslator;
+
+    switch (e.key) {
+      case "/":
+        keyTranslator = "÷";
+        break;
+      case "*":
+        keyTranslator = "×";
+        break;
+      case "-":
+        keyTranslator = "−";
+        break;
+      case "+":
+        keyTranslator = "+";
+        break;
+    }
+    setOperator(keyTranslator);
+  } else if (e.key === "Enter") {
+    sumValue();
+  } else if (e.key === "Escape" || e.key === "Backspace") {
+    let keyTranslator;
+
+    switch (e.key) {
+      case "Escape":
+        keyTranslator = "AC";
+        break;
+      case "Backspace":
+        keyTranslator = "C";
+        break;
+    }
+    utils(keyTranslator);
+  }
+});
+
 // Math operators
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
